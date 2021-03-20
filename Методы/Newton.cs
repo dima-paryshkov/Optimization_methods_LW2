@@ -3,18 +3,65 @@ using System.Collections.Generic;
 using System.Text;
 using Лабораторная_работа__2_МО.Интерфейс;
 
-namespace Лабораторная_работа__2_МО.Методы.Методы_одномерного_поиска
+namespace Лабораторная_работа__2_МО.Методы
 {
-    class FibonacciMethod
+    class Newton
     {
-        public static double oneFunction(double lambda)
+        public int NumberOfIterationsObjectiveFunction = 0;
+
+        Vector xk;
+
+        Vector gradient;
+
+        Matrix Hesse;
+
+        Matrix HesseReverse;
+
+        double Eps;
+
+        DataTable Table;
+
+        public Newton(double Eps)
         {
-            return Function();
+            this.Eps = Eps;
+            Table = new DataTable();
         }
 
-        public static double Do(double a, double b, double Eps = 0.001)
+        public Vector minimization(Vector x0, int maxIter = 50000)
         {
-            int NumberOfIterationsObjectiveFunction = 0;
+            xk = x0;
+
+            int iteration = 0;
+
+            Table.Add(xk, HesseReverse * gradient, 0);
+
+            Vector xklast = xk + 10; // чтобы прошла первая итерация
+
+            while (Function.Value(xk - xklast) < Eps && iteration++ < maxIter)
+            {
+
+                double lambda = FibonacciMethod(xk);
+                Hesse = Function.HesseMatrix(xk);
+                HesseReverse = Hesse ^ -1;
+                if (HesseReverse.col1.x < 0) HesseReverse = new Matrix(1, 0, 0, 1);
+                gradient = Function.Gradient(xk);
+                xklast = xk;
+                xk = xk - (HesseReverse * gradient) * lambda;
+                Table.Add(xk, HesseReverse * gradient, lambda);
+            }
+            return xk;
+        }
+
+        double oneFunction(double lambda)
+        {
+            NumberOfIterationsObjectiveFunction++;
+            return Function.Value(xk - (HesseReverse * gradient) * lambda);
+        }
+
+        double FibonacciMethod(Vector ab, double Eps = 0.001)
+        {
+            double a = ab.x;
+            double b = ab.y;
             List<int> F = new List<int>();
             F.Add(1);
             F.Add(1);
@@ -45,11 +92,8 @@ namespace Лабораторная_работа__2_МО.Методы.Метод�
             temp_3 = temp / temp_2;
             x2 = a + temp_3 * difference_ab;
 
-
-
             fx1 = oneFunction(x1);
             fx2 = oneFunction(x2);
-
 
             while (difference_ab > Eps)
             {
@@ -78,7 +122,5 @@ namespace Лабораторная_работа__2_МО.Методы.Метод�
             }
             return (a + b) / 2;
         }
-
-        
     }
 }

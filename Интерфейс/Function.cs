@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Лабораторная_работа__2_МО.Интерфейс
 {
-    class Function
+    static class Function
     {
         //1 - квадратичная функция
 
@@ -12,7 +12,7 @@ namespace Лабораторная_работа__2_МО.Интерфейс
 
         //3 - функция по варианту
 
-        static int Func = 1;
+        public static int Func = 1;
 
         public static double Value(Vector coor)
         {
@@ -52,6 +52,38 @@ namespace Лабораторная_работа__2_МО.Интерфейс
                     break;
             }
             return new Vector(0,0);
+        }
+
+
+        public static Matrix HesseMatrix(Vector coor)
+        {
+            switch (Func)
+            {
+                case 1:
+                    return new Matrix(198, -200, -200, 200);
+                    break;
+
+                case 2:
+                    return new Matrix(1200 * coor.x  * coor.x - 400 * coor.y - 2, -400 * coor.x, -400 * coor.x, 200);
+                    break;
+
+                case 3:
+                    double E1 = Math.Exp(-(coor.x - 2) * (coor.x - 2) - (coor.y - 3) * (coor.y - 3) / 4);
+                    double E2 = Math.Exp(-(coor.x - 1) * (coor.x - 1) / 4 - (coor.y - 1) * (coor.y - 1));
+
+                    double xx = (12 * (coor.x - 2) * (coor.x - 2)  - 6) * E1 + ((coor.x - 1) * (coor.x - 1) / 4 - 0.5) * E2;
+
+                    double xy = 3 * (coor.x -2) * (coor.y - 3) * E1 + (coor.x - 1) * (coor.y - 1) * E2; 
+
+                    double yy = (0.75 * (coor.y - 3) * (coor.y - 3) - 1.5) * E1 + (4 * (coor.y - 1) * (coor.y - 1) - 2) * E2;
+
+                    return new Matrix(xx, xy, xy, yy);
+                    break;
+
+                default:
+                    return new Matrix(1, 0, 0, 1);
+            }
+            
         }
     }
 }
