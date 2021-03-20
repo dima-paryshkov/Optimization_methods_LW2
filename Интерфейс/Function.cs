@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Лабораторная_работа__2_МО.Интерфейс
+{
+    class Function
+    {
+        //1 - квадратичная функция
+
+        //2 - функция Розенброка
+
+        //3 - функция по варианту
+
+        static int Func = 1;
+
+        public static double Value(Vector coor)
+        {
+            switch (Func)
+            {
+                case 1:
+                    return 100 * (coor.y - coor.x) * (coor.y - coor.x) + (1 - coor.x) * (1 - coor.x);
+                    break;
+
+                case 2:
+                    return 100 * (coor.y - coor.x * coor.x) * (coor.y - coor.x) + (1 - coor.x) * (1 - coor.x);
+                    break;
+
+                case 3:
+                    return 3 * Math.Exp(-(coor.x - 2) * (coor.x - 2) - (coor.y - 3) * (coor.y - 3) / 4) + Math.Exp(-(coor.x - 1) * (coor.x - 1) / 4 - (coor.y - 1) * (coor.y - 1));
+                    break;
+            }
+            return 0;
+        }
+
+        public static Vector Gradient(Vector coor)
+        {
+            switch (Func)
+            {
+                case 1:
+                    return new Vector(202 * coor.x - 200 * coor.y - 2, -200 * coor.x + 200 * coor.y);
+                    break;
+
+                case 2:
+                    return new Vector(400 * coor.x * coor.x * coor.x - 400 * coor.y + 2 * coor.x - 2, 200 * (coor.y - coor.x * coor.x));
+                    break;
+
+                case 3:
+                    double x = (-6 * coor.x + 8) * Math.Exp(-(coor.x - 2) * (coor.x - 2) - (coor.y - 3) * (coor.y - 3) / 4) + (-coor.x / 2 + 0.5) * Math.Exp(-(coor.x - 1) * (coor.x - 1) / 4 - (coor.y - 1) * (coor.y - 1));
+                    double y = (-1.5 * coor.y + 1.5) * Math.Exp(-(coor.x - 2) * (coor.x - 2) - (coor.y - 3) * (coor.y - 3) / 4) + (2 - 2 * coor.y) * Math.Exp(-(coor.x - 1) * (coor.x - 1) / 4 - (coor.y - 1) * (coor.y - 1));
+                    return new Vector(x,  y);
+                    break;
+            }
+            return new Vector(0,0);
+        }
+    }
+}
