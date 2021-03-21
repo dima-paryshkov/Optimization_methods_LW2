@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.IO;
 using Лабораторная_работа__2_МО.Интерфейс;
 
 namespace Лабораторная_работа__2_МО.Методы
@@ -15,18 +15,19 @@ namespace Лабораторная_работа__2_МО.Методы
 
         Matrix etta;
 
-        double Eps;
+        public double Eps;
 
         DataTable Table;
 
-        public Broyden(double Eps)
+        public Broyden()
         {
-            this.Eps = Eps;
             Table = new DataTable();
         }
 
-        public Vector minimization(Vector x0, int maxIter = 50000)
+        public Vector minimization(Vector x0, double EPS = 1E-7, int maxIter = 50000)
         {
+            Table.ClearTable(EPS);
+            Eps = EPS;
             xk = x0;
 
             bool flag = true;
@@ -41,7 +42,7 @@ namespace Лабораторная_работа__2_МО.Методы
 
             while (flag && iteration < maxIter)
             {
-                double lambda = FibonacciMethod(SearchSegment(0));
+                double lambda = GoldMethod(SearchSegment(0));
                 Vector xklast = xk;
                 xk = xk - (etta * gradient) * lambda;
                 Vector gradLast = gradient;
@@ -50,7 +51,7 @@ namespace Лабораторная_работа__2_МО.Методы
                 Vector DifferenceX = xk - xklast;
                 Vector temp = DifferenceX - etta * DifferenceOfGradients;
 
-                if (temp.norm() != 0 )
+                if (temp.norm() != 0)
                 {
                     Matrix Detta = new Matrix(temp.x * temp.x, temp.x * temp.y, temp.x * temp.y, temp.y * temp.y) * (1.0 / (temp * DifferenceOfGradients));
                     etta += Detta;
@@ -64,7 +65,7 @@ namespace Лабораторная_работа__2_МО.Методы
 
                     if (iteration % 1000 == 0)
                     {
-                        etta = new Matrix(1, 0, 0, 1); 
+                        etta = new Matrix(1, 0, 0, 1);
                         gradient = Function.Gradient(xk);
                     }
 
@@ -86,55 +87,25 @@ namespace Лабораторная_работа__2_МО.Методы
             return Function.Value(xk - (etta * gradient) * lambda);
         }
 
-        double FibonacciMethod(Vector ab, double Eps = 0.001)
+        double GoldMethod(Vector ab, double Eps = 0.001)
         {
             double a = ab.x;
             double b = ab.y;
-            List<int> F = new List<int>();
-            F.Add(1);
-            F.Add(1);
-
-            const int N = 1000;
-            for (int i = 0; i < N; i++)
-                F.Add(F[i] + F[i + 1]);
-
-            double x1;
-
-            double x2;
-
-            double fx1;
-
-            double fx2;
-
-            double difference_ab = b - a;
-
-            int n = 0;
-            while (difference_ab / Eps > F[n++ + 2]) ;
-
-            int k = 0;
-            double temp = F[n - k];
-            double temp_2 = F[n + 2];
-            double temp_3 = temp / temp_2;
-            x1 = a + temp_3 * difference_ab;
-            temp = F[++n - k + 1];
-            temp_3 = temp / temp_2;
-            x2 = a + temp_3 * difference_ab;
-
-            fx1 = oneFunction(x1);
-            fx2 = oneFunction(x2);
+            double difference_ab = Math.Abs(b - a);
+            double x1 = a + 0.381966011 * difference_ab;
+            double x2 = a + (1 - 0.381966011) * difference_ab;
+            double fx1 = oneFunction(x1);
+            double fx2 = oneFunction(x2);
 
             while (difference_ab > Eps)
             {
-                k++;
                 if (fx1 < fx2)
                 {
                     b = x2;
                     x2 = x1;
                     fx2 = fx1;
-                    temp = F[n - k];
-                    temp_2 = F[n + 2];
-                    temp_3 = temp / temp_2;
-                    x1 = a + temp_3 * difference_ab;
+                    difference_ab = Math.Abs(b - a);
+                    x1 = a + 0.381966011 * difference_ab;
                     fx1 = oneFunction(x1);
                 }
                 else
@@ -142,11 +113,11 @@ namespace Лабораторная_работа__2_МО.Методы
                     a = x1;
                     x1 = x2;
                     fx1 = fx2;
-                    temp = F[n - k + 1];
-                    temp_3 = temp / temp_2;
-                    x2 = a + temp_3 * difference_ab;
+                    difference_ab = Math.Abs(b - a);
+                    x2 = a + (1 - 0.381966011) * difference_ab;
                     fx2 = oneFunction(x2);
                 }
+                difference_ab = Math.Abs(b - a);
             }
             return (a + b) / 2;
         }
@@ -173,10 +144,10 @@ namespace Лабораторная_работа__2_МО.Методы
             }
             else
                 if ((fx[0] > oneFunction(x[k] - Delta)))
-            {
-                x.Add(x[k] - Delta);
-                h = -Delta;
-            }
+                {
+                    x.Add(x[k] - Delta);
+                    h = -Delta;
+                }
             fx.Add(oneFunction(x[k + 1]));
             do
             {
@@ -191,6 +162,11 @@ namespace Лабораторная_работа__2_МО.Методы
             b = x[k + 1];
 
             return new Vector(a, b);
+        }
+
+        public void OutTable(StreamWriter sw, int mode = 1)
+        {
+            Table.DrawTable(sw, mode);
         }
     }
 }

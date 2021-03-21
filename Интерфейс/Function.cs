@@ -12,7 +12,7 @@ namespace Лабораторная_работа__2_МО.Интерфейс
 
         //3 - функция по варианту
 
-        public static int Func = 1;
+        public static int Func = 2;
 
         public static double Value(Vector coor)
         {
@@ -20,15 +20,12 @@ namespace Лабораторная_работа__2_МО.Интерфейс
             {
                 case 1:
                     return 100 * (coor.y - coor.x) * (coor.y - coor.x) + (1 - coor.x) * (1 - coor.x);
-                    break;
 
                 case 2:
-                    return 100 * (coor.y - coor.x * coor.x) * (coor.y - coor.x) + (1 - coor.x) * (1 - coor.x);
-                    break;
+                    return 100 * (coor.y - coor.x * coor.x) * (coor.y - coor.x * coor.x) + (1 - coor.x) * (1 - coor.x);
 
                 case 3:
                     return 3 * Math.Exp(-(coor.x - 2) * (coor.x - 2) - (coor.y - 3) * (coor.y - 3) / 4) + Math.Exp(-(coor.x - 1) * (coor.x - 1) / 4 - (coor.y - 1) * (coor.y - 1));
-                    break;
             }
             return 0;
         }
@@ -39,17 +36,14 @@ namespace Лабораторная_работа__2_МО.Интерфейс
             {
                 case 1:
                     return new Vector(202 * coor.x - 200 * coor.y - 2, -200 * coor.x + 200 * coor.y);
-                    break;
 
                 case 2:
-                    return new Vector(400 * coor.x * coor.x * coor.x - 400 * coor.y + 2 * coor.x - 2, 200 * (coor.y - coor.x * coor.x));
-                    break;
+                    return new Vector(400 * coor.x * coor.x * coor.x - 400 * coor.y * coor.x + 2 * coor.x - 2, 200 * (coor.y - coor.x * coor.x));
 
                 case 3:
                     double x = (-6 * coor.x + 8) * Math.Exp(-(coor.x - 2) * (coor.x - 2) - (coor.y - 3) * (coor.y - 3) / 4) + (-coor.x / 2 + 0.5) * Math.Exp(-(coor.x - 1) * (coor.x - 1) / 4 - (coor.y - 1) * (coor.y - 1));
                     double y = (-1.5 * coor.y + 1.5) * Math.Exp(-(coor.x - 2) * (coor.x - 2) - (coor.y - 3) * (coor.y - 3) / 4) + (2 - 2 * coor.y) * Math.Exp(-(coor.x - 1) * (coor.x - 1) / 4 - (coor.y - 1) * (coor.y - 1));
                     return new Vector(x,  y);
-                    break;
             }
             return new Vector(0,0);
         }
@@ -60,12 +54,10 @@ namespace Лабораторная_работа__2_МО.Интерфейс
             switch (Func)
             {
                 case 1:
-                    return new Matrix(198, -200, -200, 200);
-                    break;
+                    return new Matrix(202, -200, -200, 200);
 
                 case 2:
-                    return new Matrix(1200 * coor.x  * coor.x - 400 * coor.y - 2, -400 * coor.x, -400 * coor.x, 200);
-                    break;
+                    return new Matrix(1200 * coor.x  * coor.x - 400 * coor.y + 2, -400 * coor.x, -400 * coor.x, 200);
 
                 case 3:
                     double E1 = Math.Exp(-(coor.x - 2) * (coor.x - 2) - (coor.y - 3) * (coor.y - 3) / 4);
@@ -78,7 +70,6 @@ namespace Лабораторная_работа__2_МО.Интерфейс
                     double yy = (0.75 * (coor.y - 3) * (coor.y - 3) - 1.5) * E1 + (4 * (coor.y - 1) * (coor.y - 1) - 2) * E2;
 
                     return new Matrix(xx, xy, xy, yy);
-                    break;
 
                 default:
                     return new Matrix(1, 0, 0, 1);

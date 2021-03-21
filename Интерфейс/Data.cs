@@ -24,6 +24,8 @@ namespace Лабораторная_работа__2_МО.Интерфейс
 
         public Vector gradient;
 
+        public Matrix matrix;
+
         public Data(Vector coor, Vector S, double lambda, Data DataLast)
         {
             this.coor = coor;
@@ -31,6 +33,7 @@ namespace Лабораторная_работа__2_МО.Интерфейс
             this.S = S;
             this.lambda = lambda;
             gradient = Function.Gradient(coor);
+            matrix = Function.HesseMatrix(coor);
             differenceX = coor.x - DataLast.coor.x;
             differenceY = coor.y - DataLast.coor.y;
             differenceF = funcValue - DataLast.funcValue;
@@ -44,16 +47,15 @@ namespace Лабораторная_работа__2_МО.Интерфейс
             this.S = S;
             this.lambda = lambda;
             gradient = Function.Gradient(coor);
+            matrix = Function.HesseMatrix(coor);
             differenceX = 0;
             differenceY = 0;
             differenceF = 0;
             angle = Angle();
         }
 
-        double Angle()
-        {
-            return Math.Acos((Vector.norm(coor, S)) / (coor.norm() * S.norm()));
-        }
+        double Angle() 
+            => Math.Acos((coor.x * S.x + coor.y * S.y) / (coor.norm() * S.norm() + 1E-10));
 
     }
 }

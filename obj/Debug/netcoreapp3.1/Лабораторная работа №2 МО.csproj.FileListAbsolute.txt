@@ -1,0 +1,13 @@
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.csprojAssemblyReference.cache
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.AssemblyInfoInputs.cache
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.AssemblyInfo.cs
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.csproj.CoreCompileInputs.cache
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\Лабораторная работа №2 МО.exe
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\Лабораторная работа №2 МО.deps.json
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\Лабораторная работа №2 МО.runtimeconfig.json
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\Лабораторная работа №2 МО.runtimeconfig.dev.json
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\Лабораторная работа №2 МО.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\Лабораторная работа №2 МО.pdb
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.pdb
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.genruntimeconfig.cache

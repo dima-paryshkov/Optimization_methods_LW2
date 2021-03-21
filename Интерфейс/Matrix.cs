@@ -10,7 +10,11 @@ namespace Лабораторная_работа__2_МО.Интерфейс
 
 		public Vector col2;
 
-        public Matrix() { }
+        public Matrix() 
+		{
+			col1 = new Vector(0, 0);
+			col2 = new Vector(0, 0);
+		}
 
 		public Matrix(Vector vector1, Vector vector2)
         {
