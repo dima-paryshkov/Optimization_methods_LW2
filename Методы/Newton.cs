@@ -10,6 +10,8 @@ namespace Лабораторная_работа__2_МО.Методы
     {
         public int NumberOfIterationsObjectiveFunction = 0;
 
+        int iteration = 0;
+
         Vector xk;
 
         Vector gradient;
@@ -22,6 +24,8 @@ namespace Лабораторная_работа__2_МО.Методы
 
         double Eps;
 
+        double EpsN = 1E-7;
+
         DataTable Table;
 
         public Newton()
@@ -33,68 +37,78 @@ namespace Лабораторная_работа__2_МО.Методы
         public Vector minimization(Vector x0, double EPS = 1E-7, int maxIter = 50000)
         {
             Table.ClearTable(EPS);
+            NumberOfIterationsObjectiveFunction = 0;
             Eps = EPS;
             xk = x0;
-            Vector ab = new Vector(0, 0);
-            int iteration = 0;
 
             double fk = Function.Value(xk);
+            NumberOfIterationsObjectiveFunction++;
 
-            double fpred = 0;
+            double flast = 0;
+            double differencef = Math.Abs(fk - flast);
 
-            Vector xpred = new Vector(-10, -10);
+            Vector ab = new Vector(0, 0);
+            iteration = 0;
 
-            while ((Math.Abs(fk - fpred) > Eps /*|| Math.Abs(xk.x - xpred.x) > Eps || Math.Abs(xk.y - xpred.y) > Eps*/) && iteration++ < maxIter)
+            while (differencef > Eps /*|| Math.Abs(xk.x - xpred.x) > Eps || Math.Abs(xk.y - xpred.y) > Eps*/ && iteration++ < maxIter)
             {
-                fpred = fk;
+                flast = fk;
                 Hesse = Function.HesseMatrix(xk);
                 HesseReverse = Hesse ^ -1;
                 if (HesseReverse.col1.x < 0 /*|| HesseReverse.col1.x * HesseReverse.col2.y - HesseReverse.col1.y * HesseReverse.col2.x < 0*/)
                     HesseReverse = new Matrix(1, 0, 0, 1);
                 gradient = Function.Gradient(xk);
-                S = HesseReverse * gradient;
-                ab = SearchSegment(ab, xk);
+                S = HesseReverse * gradient * -1;
+
+                ab = SearchIntervalWithMinimum(ab, xk, EPS);
                 double lambda = GoldMethod(ab, xk);
-                xpred = xk;
+
                 xk = xk + S * lambda;
-                Table.Add(xk, S, lambda);
                 fk = Function.Value(xk);
+                NumberOfIterationsObjectiveFunction++;
+                iteration++;
+                differencef = Math.Abs(fk - flast);
+                Table.Add(xk, S, lambda);
             }
             return xk;
         }
 
-        double oneFunction(double lambda)
+
+        Vector SearchIntervalWithMinimum(Vector c, Vector xk, double Eps)
         {
-            NumberOfIterationsObjectiveFunction++;
-            return Function.Value(xk - (HesseReverse * gradient) * lambda);
-        }
+            double lyampred = c.x;
+            double lyamnext = c.y;
+            int count_f_1 = 0;
+            List<double> ltemp = new List<double>(2);
+            List<double> ltemppred = new List<double>(2);
+            List<double> ltempnext = new List<double>(2);
 
-        Vector SearchSegment(Vector ab, Vector xk, double deltaS = 1E-9)
-        {
+            for (int i = 0; i < 2; i++)
+            {
+                ltemp.Add(0);
+                ltemppred.Add(0);
+                ltempnext.Add(0);
+            }
 
-            double lyampred = ab.x;
-            double lyamnext = ab.y;
-            List<double> ltemp = new List<double>();
+            double lyam;
+            double deltaS = EpsN;
+            lyam = 1;
 
-            List<double> ltemppred = new List<double>();
 
-            List<double> ltempnext = new List<double>();
+            ltemp[0] = xk.x + lyam * S.x;
+            ltemp[1] = xk.y + lyam * S.y;
 
-            double lyam = 1;
+            ltemppred[0] = xk.x + (lyam - deltaS) * S.x;
+            ltemppred[1] = xk.y + (lyam - deltaS) * S.y;
 
-            ltemp.Add(xk.x + lyam * S.x);
-            ltemp.Add(xk.y + lyam * S.y);
+            ltempnext[0] = xk.x + (lyam + deltaS) * S.x;
+            ltempnext[1] = xk.y + (lyam + deltaS) * S.y;
 
-            ltemppred.Add(xk.x + (lyam - deltaS) * S.x);
-            ltemppred.Add(xk.y + (lyam - deltaS) * S.y);
-
-            ltempnext.Add(xk.x + (lyam + deltaS) * S.x);
-            ltempnext.Add(xk.y + (lyam + deltaS) * S.y);
 
             double f = Function.Value(new Vector(ltemp[0], ltemp[1]));
             double fdm = Function.Value(new Vector(ltemppred[0], ltemppred[1]));
             double fdp = Function.Value(new Vector(ltempnext[0], ltempnext[1]));
-            
+            NumberOfIterationsObjectiveFunction += 3;
             double fnext;
 
             if (f > fdp)
@@ -111,10 +125,7 @@ namespace Лабораторная_работа__2_МО.Методы
             {
                 lyampred = lyam - deltaS;
                 lyamnext = lyam + deltaS;
-                if (lyampred < lyamnext)
-                    return new Vector(lyampred, lyamnext);
-                else
-                    return new Vector(lyamnext, lyampred);
+                return new Vector(lyampred, lyamnext);
             }
 
             lyamnext = lyam + deltaS;
@@ -132,11 +143,17 @@ namespace Лабораторная_работа__2_МО.Методы
 
                 f = fnext;
                 fnext = Function.Value(new Vector(ltemp[0], ltemp[1]));
+                NumberOfIterationsObjectiveFunction++;
+
             } while (fnext < f);
-            if (lyampred < lyamnext)
-                return new Vector(lyampred, lyamnext);
-            else
-                return new Vector(lyamnext, lyampred);
+
+            if (lyampred > lyamnext)
+            {
+                double temp = lyampred;
+                lyampred = lyamnext;
+                lyamnext = temp;
+            }
+            return new Vector(lyampred, lyamnext);
         }
 
         double GoldMethod(Vector ab, Vector xk, double Eps = 1E-9)
@@ -156,10 +173,12 @@ namespace Лабораторная_работа__2_МО.Методы
             ltemp1.Add(xk.x + lyam1 * s[0]);
             ltemp1.Add(xk.y + lyam1 * s[1]);
             double f1 = Function.Value(new Vector(ltemp1[0], ltemp1[1]));
+            NumberOfIterationsObjectiveFunction++;
 
             ltemp2.Add(xk.x + lyam2 * s[0]);
             ltemp2.Add(xk.y + lyam2 * s[1]);
             double f2 = Function.Value(new Vector(ltemp2[0], ltemp2[1]));
+            NumberOfIterationsObjectiveFunction++;
 
             while (Math.Abs(b - a) > Eps)
             {
@@ -173,8 +192,9 @@ namespace Лабораторная_работа__2_МО.Методы
                     ltemp1[0] = xk.x + lyam1 * s[0];
                     ltemp1[1] = xk.y + lyam1 * s[1];
                     f1 = Function.Value(new Vector(ltemp1[0], ltemp1[1]));
+                    NumberOfIterationsObjectiveFunction++;
                 }
-                else 
+                else
                 {
                     a = lyam1;
                     lyam1 = lyam2;
@@ -185,100 +205,17 @@ namespace Лабораторная_работа__2_МО.Методы
                     ltemp2[0] = xk.x + lyam2 * s[0];
                     ltemp2[1] = xk.y + lyam2 * s[1];
                     f2 = Function.Value(new Vector(ltemp2[0], ltemp2[1]));
+                    NumberOfIterationsObjectiveFunction++;
                 }
             }
-            return (a + b) / 2;
+            return a;
         }
 
         public void OutTable(StreamWriter sw, int mode = 1)
         {
+            sw.WriteLine("Number of iterations objective function: " + NumberOfIterationsObjectiveFunction);
+            sw.WriteLine("Number of iterations: " + iteration);
             Table.DrawTable(sw, mode);
-        }
-
-        Vector SearchSegment2(double Xzero, double Delta = 1E-9)
-        {
-            List<double> x = new List<double>();
-
-            List<double> fx = new List<double>();
-
-            double a, b;
-
-            double h = Delta;
-
-            int k = 0;
-
-            x.Add(Xzero);
-            fx.Add(oneFunction(x[k]));
-
-            if (fx[0] > oneFunction(x[k] + Delta))
-            {
-                x.Add(x[k] + Delta);
-                h = Delta;
-            }
-            else 
-                if (fx[0] > oneFunction(x[k] - Delta))
-                {
-                    x.Add(x[k] - Delta);
-                    h = -Delta;
-                }
-                else
-                {
-                     return new Vector(x[k] - Delta, x[k] + Delta);
-                }
-            fx.Add(oneFunction(x[k + 1]));
-            do
-            {
-                k++;
-                h *= 2;
-                x.Add(x[k] + h);
-                fx.Add(oneFunction(x[k + 1]));
-
-            } while (fx[k] > fx[k + 1]);
-
-            a = x[k - 1];
-            b = x[k + 1];
-            if (a < b)
-            {
-                double tmp = a;
-                a = b;
-                b = tmp;
-            }
-            return new Vector(a, b);
-        }
-
-        double GoldMethod2(Vector ab, double Eps = 1E-9)
-        {
-            double a = ab.x;
-            double b = ab.y;
-            double difference_ab = Math.Abs(b - a);
-            double x1 = a + 0.381966011 * difference_ab;
-            double x2 = a + (1 - 0.381966011) * difference_ab;
-            double fx1 = oneFunction(x1);
-            double fx2 = oneFunction(x2);
-
-            while (difference_ab > Eps)
-            {
-                if (fx1 < fx2)
-                {
-                    b = x2;
-                    x2 = x1;
-                    fx2 = fx1;
-                    difference_ab = Math.Abs(b - a);
-                    x1 = a + 0.381966011 * difference_ab;
-                    fx1 = oneFunction(x1);
-                }
-                else
-                {
-                    a = x1;
-                    x1 = x2;
-                    fx1 = fx2;
-                    difference_ab = Math.Abs(b - a);
-                    x2 = a + (1 - 0.381966011) * difference_ab;
-                    fx2 = oneFunction(x2);
-                }
-                difference_ab = Math.Abs(b - a);
-            }
-            return (a + b) / 2;
         }
     }
 }

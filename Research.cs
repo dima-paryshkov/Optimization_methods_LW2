@@ -13,9 +13,9 @@ namespace Лабораторная_работа__2_МО
 
             Broyden broyden = new Broyden();
 
-            Vector x0 = new Vector(-1, 4);
+            Vector x0 = new Vector(-5, 5);
 
-            Function.Func = 2;
+            Function.Func = 1;
 
             double Eps = 1E-7;
 
@@ -26,7 +26,7 @@ namespace Лабораторная_работа__2_МО
             Newton Newton = new Newton();
 
             Newton.minimization(x0, Eps, 10000);
-            Newton.OutTable(sw);
+            Newton.OutTable(sw, 2);
 
 
             sw.Close();

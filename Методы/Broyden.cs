@@ -8,6 +8,8 @@ namespace Лабораторная_работа__2_МО.Методы
     class Broyden
     {
         public int NumberOfIterationsObjectiveFunction = 0;
+        
+        int iteration = 0;
 
         Vector xk;
 
@@ -29,7 +31,7 @@ namespace Лабораторная_работа__2_МО.Методы
             Table.ClearTable(EPS);
             Eps = EPS;
             xk = x0;
-
+            NumberOfIterationsObjectiveFunction = 0;
             bool flag = true;
 
             etta = new Matrix(1, 0, 0, 1);
@@ -68,16 +70,14 @@ namespace Лабораторная_работа__2_МО.Методы
                         etta = new Matrix(1, 0, 0, 1);
                         gradient = Function.Gradient(xk);
                     }
-
-
                 }
                 else
                 {
                     flag = false;
                     Console.WriteLine("\nVector temp = 0");
                 }
+                iteration++;
             }
-
             return xk;
         }
 
@@ -166,6 +166,8 @@ namespace Лабораторная_работа__2_МО.Методы
 
         public void OutTable(StreamWriter sw, int mode = 1)
         {
+            sw.WriteLine("Number of iterations objective function: " + NumberOfIterationsObjectiveFunction);
+            sw.WriteLine("Number of iterations: " + iteration);
             Table.DrawTable(sw, mode);
         }
     }

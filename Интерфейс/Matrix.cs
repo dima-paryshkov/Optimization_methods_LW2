@@ -41,8 +41,8 @@ namespace Лабораторная_работа__2_МО.Интерфейс
 		{
 			if (N == -1)
             {
-				double det = M1.col1.x * M1.col2.y - M1.col1.y * M1.col2.x;
-				return new Matrix(M1.col1.x / det, M1.col1.y / det, M1.col2.x / det, M1.col2.y / det) ;
+				double det = Math.Abs(M1.col1.x * M1.col2.y - M1.col1.y * M1.col2.x);
+				return new Matrix(M1.col2.y / det, M1.col1.y / -det, M1.col2.x / -det, M1.col1.x / det) ;
 			}
             else 
 			{
