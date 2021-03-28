@@ -10,9 +10,9 @@ namespace Лабораторная_работа__2_МО.Методы
     {
         public int NumberOfIterationsObjectiveFunction = 0;
 
-        int iteration = 0;
+        public int iteration = 0;
 
-        Vector xk;
+        public Vector xk;
 
         Vector gradient;
 
@@ -50,12 +50,15 @@ namespace Лабораторная_работа__2_МО.Методы
             Vector ab = new Vector(0, 0);
             iteration = 0;
 
-            while (differencef > Eps /*|| Math.Abs(xk.x - xpred.x) > Eps || Math.Abs(xk.y - xpred.y) > Eps*/ && iteration++ < maxIter)
+            Vector xpred = new Vector(0,0);
+
+            while (differencef > Eps || Math.Abs(xk.x - xpred.x) > Eps || Math.Abs(xk.y - xpred.y) > Eps && iteration < maxIter)
             {
                 flast = fk;
+                xpred = xk;
                 Hesse = Function.HesseMatrix(xk);
                 HesseReverse = Hesse ^ -1;
-                if (HesseReverse.col1.x < 0 /*|| HesseReverse.col1.x * HesseReverse.col2.y - HesseReverse.col1.y * HesseReverse.col2.x < 0*/)
+                if (HesseReverse.col1.x < 0)
                     HesseReverse = new Matrix(1, 0, 0, 1);
                 gradient = Function.Gradient(xk);
                 S = HesseReverse * gradient * -1;

@@ -1,8 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "E6w7TQxa9tNBWlXtkictDM93bxRXNgkdlshz7vnJjbPmdVyFAFC22gZCW5wd3Gk7kVQUGEBqteld0otRDbPHlQ==",
+  "dgSpecHash": "bmNrBlv61bC7tjpoP6zp7UAhGuYZTOAabr+Vdugqyu+AGEYIss3Z4Px4uTjJaYaWa3oIuWTORpCp/iNr7xbS9A==",
   "success": true,
   "projectFilePath": "C:\\Users\\dimon\\OneDrive\\NETI\\VI семестр\\Методы оптимизации\\Лабораторная работа №2\\Лабораторная работа №2 МО\\Лабораторная работа №2 МО.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\dimon\\.nuget\\packages\\microsoft.netcore.platforms\\2.0.0\\microsoft.netcore.platforms.2.0.0.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\microsoft.win32.systemevents\\4.5.0\\microsoft.win32.systemevents.4.5.0.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\npoi\\2.5.2\\npoi.2.5.2.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\portable.bouncycastle\\1.8.6\\portable.bouncycastle.1.8.6.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\sharpziplib\\1.2.0\\sharpziplib.1.2.0.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\system.configuration.configurationmanager\\4.5.0\\system.configuration.configurationmanager.4.5.0.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\system.drawing.common\\4.5.0\\system.drawing.common.4.5.0.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\system.security.accesscontrol\\4.5.0\\system.security.accesscontrol.4.5.0.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\system.security.cryptography.protecteddata\\4.5.0\\system.security.cryptography.protecteddata.4.5.0.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\system.security.permissions\\4.5.0\\system.security.permissions.4.5.0.nupkg.sha512",
+    "C:\\Users\\dimon\\.nuget\\packages\\system.security.principal.windows\\4.5.0\\system.security.principal.windows.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

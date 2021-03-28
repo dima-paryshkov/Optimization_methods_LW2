@@ -11,3 +11,19 @@ C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизаци
 C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.dll
 C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.pdb
 C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.genruntimeconfig.cache
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\NPOI.OOXML.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\NPOI.OpenXml4Net.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\NPOI.OpenXmlFormats.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\NPOI.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\BouncyCastle.Crypto.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\ICSharpCode.SharpZipLib.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\System.Configuration.ConfigurationManager.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\System.Drawing.Common.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\System.Security.Permissions.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Drawing.Common.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Drawing.Common.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\dimon\OneDrive\NETI\VI семестр\Методы оптимизации\Лабораторная работа №2\Лабораторная работа №2 МО\obj\Debug\netcoreapp3.1\Лабораторная работа №2 МО.csproj.CopyComplete

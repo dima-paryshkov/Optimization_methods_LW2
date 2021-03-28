@@ -9,9 +9,9 @@ namespace Лабораторная_работа__2_МО.Методы
     {
         public int NumberOfIterationsObjectiveFunction = 0;
         
-        int iteration = 0;
+        public int iteration = 0;
 
-        Vector xk;
+        public Vector xk;
 
         Vector gradient;
 
@@ -38,11 +38,11 @@ namespace Лабораторная_работа__2_МО.Методы
 
             gradient = Function.Gradient(xk);
 
-            int iteration = 0;
+            iteration = 0;
 
             Table.Add(xk, etta * gradient, 0);
 
-            while (flag && iteration < maxIter)
+            while (flag && iteration++ < maxIter)
             {
                 double lambda = GoldMethod(SearchSegment(0));
                 Vector xklast = xk;
@@ -59,9 +59,8 @@ namespace Лабораторная_работа__2_МО.Методы
                     etta += Detta;
                     double gradientNorm = gradient.norm();
 
-                    if (gradientNorm < Eps)
+                    if (Math.Abs(Function.Value(xk) - Function.Value(xklast)) < Eps && Math.Abs(DifferenceX.x - xk.x) < Eps * 2 && Math.Abs(DifferenceX.y - xk.y) < Eps * 2)
                         flag = false;
-                    iteration++;
 
                     Table.Add(xk, etta * gradient, lambda);
 
@@ -74,9 +73,7 @@ namespace Лабораторная_работа__2_МО.Методы
                 else
                 {
                     flag = false;
-                    Console.WriteLine("\nVector temp = 0");
                 }
-                iteration++;
             }
             return xk;
         }
@@ -147,6 +144,12 @@ namespace Лабораторная_работа__2_МО.Методы
                 {
                     x.Add(x[k] - Delta);
                     h = -Delta;
+                }
+                else
+                {
+                a = x[0] - Delta;
+                b = x[0] + Delta;
+                return new Vector(a, b);
                 }
             fx.Add(oneFunction(x[k + 1]));
             do

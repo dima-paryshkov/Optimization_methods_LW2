@@ -6,4 +6,8 @@
     <RootNamespace>Лабораторная_работа__2_МО</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="NPOI" Version="2.5.2" />
+  </ItemGroup>
+
 </Project>
