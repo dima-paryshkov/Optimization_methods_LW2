@@ -7,6 +7,10 @@ namespace Лабораторная_работа__2_МО.Методы
 {
     class Broyden
     {
+        // 1 - Метод дихотомии
+        // 2 - метод золотого сечения
+        // 3 - метод парабол
+
         public int NumberOfIterationsObjectiveFunction = 0;
         
         public int iteration = 0;
@@ -26,7 +30,7 @@ namespace Лабораторная_работа__2_МО.Методы
             Table = new DataTable();
         }
 
-        public Vector minimization(Vector x0, double EPS = 1E-7, int maxIter = 50000)
+        public Vector minimization(Vector x0, int type = 2, double EPS = 1E-7, int maxIter = 50000)
         {
             Table.ClearTable(EPS);
             Eps = EPS;
@@ -44,7 +48,22 @@ namespace Лабораторная_работа__2_МО.Методы
 
             while (flag && iteration++ < maxIter)
             {
-                double lambda = GoldMethod(SearchSegment(0));
+                double lambda = 0;
+                // 1 - Метод дихотомии
+                // 2 - метод золотого сечения
+                // 3 - метод парабол
+                switch (type)
+                {
+                    case 1:
+                        lambda = DichometricsMethod(SearchSegment(0));
+                        break;
+                    case 2:
+                        lambda = GoldMethod(SearchSegment(0));
+                        break;
+                    case 3:
+                        lambda = ParabolMethods(SearchSegment(0));
+                        break;
+                }
                 Vector xklast = xk;
                 xk = xk - (etta * gradient) * lambda;
                 Vector gradLast = gradient;
@@ -58,6 +77,9 @@ namespace Лабораторная_работа__2_МО.Методы
                     Matrix Detta = new Matrix(temp.x * temp.x, temp.x * temp.y, temp.x * temp.y, temp.y * temp.y) * (1.0 / (temp * DifferenceOfGradients));
                     etta += Detta;
                     double gradientNorm = gradient.norm();
+                    double ah = Math.Abs(Function.Value(xk) - Function.Value(xklast));
+                    if (double.IsNaN(ah))
+                        break;
 
                     if (Math.Abs(Function.Value(xk) - Function.Value(xklast)) < Eps && Math.Abs(DifferenceX.x - xk.x) < Eps * 2 && Math.Abs(DifferenceX.y - xk.y) < Eps * 2)
                         flag = false;
@@ -117,6 +139,81 @@ namespace Лабораторная_работа__2_МО.Методы
                 difference_ab = Math.Abs(b - a);
             }
             return (a + b) / 2;
+        }
+
+        double DichometricsMethod(Vector ab, double Eps = 0.001)
+        {
+            double a = ab.x;
+            double b = ab.y;
+            double Delta = Eps / 10;
+            double x1 = (a + b - Delta) / 2;
+            double x2 = (a + b + Delta) / 2;
+            double fx1 = oneFunction(x1);
+            double fx2 = oneFunction(x2);
+            
+            while (b - a > Eps)
+            {
+                if (fx1 < fx2)
+                    b = x2;
+                else
+                    a = x1;
+                x1 = (a + b - Delta) / 2;
+                x2 = (a + b + Delta) / 2;
+                fx1 = oneFunction(x1);
+                fx2 = oneFunction(x2);
+            }
+            return a;
+        }
+
+        double ParabolMethods(Vector ab, double Eps = 0.001)
+        {
+            double x1, x2, x3, f1, f2, f3, a1, a2, x, fx, xp;
+
+            x1 = ab.x;
+            x2 = (ab.x + ab.y) / 2;
+            x3 = ab.y;
+            x = 0;
+            f1 = oneFunction(x1);
+            f2 = oneFunction(x2);
+            f3 = oneFunction(x3);
+            xp = x;
+            do
+            {
+                xp = x;
+                a1 = (f2 - f1) * (x3 - x2) / (x2 - x1);
+                a2 = ((f3 - f1) / (x3 - x1) - (f2 - f1) / (x2 - x1));
+                x = 0.5 * (x1 + x2 - (a1 / a2));
+                fx = oneFunction(x);
+                if (x1 < x && x < x2 && x2 < x3)
+                    if (fx >= f2)
+                    {
+                        x1 = x;
+                        f1 = oneFunction(x1);
+                    }
+                    else
+                    {
+                        x3 = x2;
+                        x2 = x;
+                        f2 = oneFunction(x2);
+                        f3 = oneFunction(x3);
+                    }
+                else
+                    if (x1 < x2 & x2 < x && x < x3)
+                    if (fx >= f2)
+                    {
+                        x3 = x;
+                        f3 = oneFunction(x3);
+                    }
+                    else
+                    {
+                        x1 = x2;
+                        x2 = x;
+                        f1 = oneFunction(x1);
+                        f2 = oneFunction(x2);
+                    }
+            }
+            while (Math.Abs(xp - x) > Eps);
+            return x;
         }
 
         Vector SearchSegment(double Xzero, double Delta = 1E-5)

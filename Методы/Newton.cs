@@ -76,7 +76,6 @@ namespace Лабораторная_работа__2_МО.Методы
             return xk;
         }
 
-
         Vector SearchIntervalWithMinimum(Vector c, Vector xk, double Eps)
         {
             double lyampred = c.x;

@@ -15,13 +15,14 @@ namespace Лабораторная_работа__2_МО
             Broyden broyden = new Broyden();
             Newton Newton = new Newton();
             Function.Func = 2;
+            int type = 2;
             double Eps = 1E-3;
             Vector x0 = new Vector(-1, -1);
 
             Console.WriteLine("Eps = " + Eps);
 
             x0 = new Vector(1.5, 1.6);
-            broyden.minimization(x0, Eps);
+            broyden.minimization(x0, type, Eps);
             Newton.minimization(x0, Eps, 10000);
             Console.WriteLine("x0 = " + x0.x + " " + x0.y);
             Console.WriteLine("Method Broyden:");
@@ -40,7 +41,7 @@ namespace Лабораторная_работа__2_МО
             Console.WriteLine("");
 
             x0 = new Vector(-1, -1);
-            broyden.minimization(x0, Eps);
+            broyden.minimization(x0, type, Eps);
             Newton.minimization(x0, Eps, 10000);
             Console.WriteLine("x0 = " + x0.x + " " + x0.y);
             Console.WriteLine("Method Broyden:");
@@ -60,7 +61,7 @@ namespace Лабораторная_работа__2_МО
 
 
             x0 = new Vector(-10, 10);
-            broyden.minimization(x0, Eps);
+            broyden.minimization(x0, type, Eps);
             Newton.minimization(x0, Eps, 10000);
             Console.WriteLine("x0 = " + x0.x + " " + x0.y);
             Console.WriteLine("Method Broyden:");
@@ -87,11 +88,16 @@ namespace Лабораторная_работа__2_МО
 
             Vector x0 = new Vector(-5, 5);
 
-            Function.Func = 5;
+            Function.Func = 4;
 
-            double Eps = 1E-3;
+            int type = 2;
+            // 1 - Метод дихотомии
+            // 2 - метод золотого сечения
+            // 3 - метод парабол
+
+            double Eps = 1E-5;
             sw.WriteLine("Method Broyden:");
-            broyden.minimization(x0, Eps);
+            broyden.minimization(x0, type, Eps);
             broyden.OutTable(sw);
 
 

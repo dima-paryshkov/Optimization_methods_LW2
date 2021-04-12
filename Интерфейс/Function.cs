@@ -29,13 +29,13 @@ namespace Лабораторная_работа__2_МО.Интерфейс
                     return 100 * (c.y - c.x * c.x) * (c.y - c.x * c.x) + (1 - c.x) * (1 - c.x);
 
                 case 3:
-                    return 3 / (1 + (c.x - 2) * (c.x - 2) + (c.y - 3) * (c.y - 3) / 4) + 1 / (1 + (c.x - 1) * (c.x - 1) / 4 + (c.y - 1) * (c.y - 1));
+                    return -(3 / (1 + (c.x - 2) * (c.x - 2) + (c.y - 3) * (c.y - 3) / 4) + 1 / (1 + (c.x - 1) * (c.x - 1) / 4 + (c.y - 1) * (c.y - 1)));
 
                 case 4:
                     return -(3.0 / (1 + (c.x - 3) * (c.x - 3) / 4 + (c.y - 2) * (c.y - 2)) + 1.0 / (1 + (c.x - 3) * (c.x - 3) + (c.y - 1) * (c.y - 1) / 9));
                 
                 case 5:
-                    return 3 * Math.Exp(-(c.x - 2) * (c.x - 2) - (c.y - 3) * (c.y - 3) / 4) + Math.Exp(-(c.x - 1) * (c.x - 1) / 4 - (c.y - 1) * (c.y - 1));
+                    return -(3 * Math.Exp(-(c.x - 2) * (c.x - 2) - (c.y - 3) * (c.y - 3) / 4) + Math.Exp(-(c.x - 1) * (c.x - 1) / 4 - (c.y - 1) * (c.y - 1)));
                
             }
             return 0;
@@ -54,7 +54,7 @@ namespace Лабораторная_работа__2_МО.Интерфейс
                 case 3:
                     double E1 = (c.y - 1) * (c.y - 1) + (c.x - 1) * (c.x - 1) / 4 + 1;
                     double E2 = (c.y - 3) * (c.y - 3) / 4 + (c.x - 2) * (c.x - 2) + 1;
-                    return new Vector((0.5 - c.x / 2) / (E1 * E1) + (12 - 6 * c.x) / (E2 * E2), 3 * (1.5 - c.y / 2) / (E2 * E2) + (2 - 2 * c.y) / (E1 * E1));
+                    return new Vector(-(0.5 - c.x / 2) / (E1 * E1) + (12 - 6 * c.x) / (E2 * E2), -3 * (1.5 - c.y / 2) / (E2 * E2) + (2 - 2 * c.y) / (E1 * E1));
 
                 case 4:
                     double f1 = (c.x - 3) * (c.x - 3) + (c.y - 1) * (c.y - 1) / 9 + 1;
@@ -67,7 +67,7 @@ namespace Лабораторная_работа__2_МО.Интерфейс
                     E2 = Math.Exp(-(c.x - 1) * (c.x - 1) / 4 - (c.y - 1) * (c.y - 1));
                     double x = (-6 * c.x + 12) * E1 + (-c.x / 2 + 0.5) * E2;
                     double y = (-1.5 * c.y + 4.5) * E1 + (2 - 2 * c.y) * E2;
-                    return new Vector(x,  y);
+                    return new Vector(-x,  -y);
             }
             return new Vector(0,0);
         }
@@ -89,7 +89,7 @@ namespace Лабораторная_работа__2_МО.Интерфейс
                     double xx = 8 * (192 * (c.x - 2) * (c.x - 2) / (E1 * E1 * E1) + 4 * (c.x - 1) * (c.x - 1) / (E2 * E2 * E2) - 1 / (E2 * E2) - 12 / (E1 * E1));
                     double xy = 128 * (3 * (c.x - 2) * (c.y - 3) / (E1 * E1 * E1) + (c.x - 1) * (c.y - 1) / (E2 * E2 * E2));
                     double yy = 8 * (12 * (c.y - 3) * (c.y - 3) / (E1 * E1 * E1) + 64 * (c.y - 1) * (c.y - 1) / (E2 * E2 * E2) - 4 / (E2 * E2) - 3 / (E1 * E1));
-                    return new Matrix(xx, xy, xy, yy);
+                    return new Matrix(-xx, -xy, -xy, -yy);
 
                 case 4:
                     double f1 = (c.x - 3) * (c.x - 3) + (c.y - 1) * (c.y - 1) / 9 + 1;
@@ -111,7 +111,7 @@ namespace Лабораторная_работа__2_МО.Интерфейс
 
                     yy = (0.75 * (c.y - 3) * (c.y - 3) - 1.5) * E1 + (4 * (c.y - 1) * (c.y - 1) - 2) * E2;
 
-                    return new Matrix(xx, xy, xy, yy);
+                    return new Matrix(-xx, -xy, -xy, -yy);
 
 
                 default:
